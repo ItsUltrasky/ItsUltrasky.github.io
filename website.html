@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffcccc; /* Light pink background */
+        }
+        header {
+            background-color: #ff4d6d; /* Reddish-pink header */
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        section {
+            padding: 50px;
+            text-align: center;
+        }
+        .option-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .option {
+            margin: 0 10px;
+            border: none;
+            padding: 15px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.5s ease; /* Smooth transition for button size */
+        }
+        #yes {
+            background-color: #ff4d6d; /* Reddish-pink for Yes button */
+            color: #fff;
+            width: 150px; /* Adjusted width for the Yes button */
+            display: inline-block; /* Show the Yes button initially */
+        }
+        #no {
+            background-color: #ff9999; /* Light red for No button */
+            color: #fff;
+            width: 150px; /* Adjusted width for the No button */
+        }
+        #message {
+            font-size: 20px;
+            margin-top: 20px;
+            display: none; /* Initially hide the message */
+        }
+        #video-container {
+            position: relative; /* Position the container */
+            margin-top: 20px;
+            display: none; /* Initially hide the video container */
+        }
+        .gif {
+            max-width: 150px; /* Adjust the size of the additional GIFs */
+            position: absolute; /* Position the gifs */
+            display: none; /* Initially hide the gifs */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Be My Valentine</h1>
+    </header>
+    <section>
+        <img id="cute-gif" src="https://media.giphy.com/media/KztT2c4u8mYYUiMKdJ/giphy.gif" alt="Cute GIF">
+        <div class="option-container">
+            <button id="yes" class="option" onclick="selectOption('yes')">Yes</button>
+            <button id="no" class="option" onclick="selectOption('no')">No</button>
+        </div>
+        <div id="message"></div>
+        <div id="video-container">
+            <iframe id="video-frame" width="560" height="315" src="" frameborder="0" allowfullscreen></iframe>
+            <!-- Additional GIFs -->
+            <img class="gif" id="gif1" src="https://media.giphy.com/media/FDXSSXTH8A64FyOKjg/giphy.gif" alt="GIF 1" style="top: 30px; left: 30px;">
+            <img class="gif" id="gif2" src="https://media.giphy.com/media/kqpInHfnKcYNkvYoe8/giphy.gif" alt="GIF 2" style="top: 30px; right: 30px;">
+            <img class="gif" id="gif3" src="https://media.giphy.com/media/TtXVxGvVYaVUoSurGz/giphy.gif" alt="GIF 3" style="bottom: 30px; left: 30px;">
+            <img class="gif" id="gif4" src="https://media.giphy.com/media/mLXh1ChsWovF3ESR4X/giphy.gif" alt="GIF 4" style="bottom: 30px; right: 30px;">
+        </div>
+    </section>
+
+    <script>
+        var yesTexts = ["Yes, I'd love to!", "Ugh Sure Whatever", "Obsessed much?", "Buy me Food", "About time you loser", "I guess you'll do", "Without a doubt!", "Definitely!", "You bet!"];
+        var yesIndex = 0;
+
+        function getNextYesText() {
+            if (yesIndex === yesTexts.length) {
+                yesIndex = 0; // Reset index if reached the end of the array
+            }
+            return yesTexts[yesIndex++];
+        }
+
+        var noTexts = ["No,nah go away", "Not today", "I'll pass", "Maybe later", "Thanks, but no thanks", "I'm good, thanks", "Nope", "Not feeling it", "Not now"];
+        var noIndex = 0;
+
+        function getNextNoText() {
+            if (noIndex === noTexts.length) {
+                noIndex = 0; // Reset index if reached the end of the array
+            }
+            return noTexts[noIndex++];
+        }
+
+        function loopNo() {
+            var noButton = document.getElementById("no");
+            var yesButton = document.getElementById("yes");
+
+            noButton.innerText = getNextNoText();
+            yesButton.innerText = getNextYesText();
+        }
+
+        function selectOption(option) {
+            var yesButton = document.getElementById("yes");
+            var noButton = document.getElementById("no");
+            var videoContainer = document.getElementById("video-container");
+            var cuteGif = document.getElementById("cute-gif");
+
+            if (option === 'yes') {
+                yesButton.style.display = "none"; // Hide the Yes button
+                noButton.style.display = "none"; // Hide the No button
+                cuteGif.style.display = "none"; // Hide the cute GIF
+                videoContainer.style.display = "block"; // Show the video container
+                var videoFrame = document.getElementById("video-frame");
+                videoFrame.src = "https://www.youtube.com/embed/J---aiyznGQ?autoplay=1"; // Set the source with autoplay parameter
+                // Show additional GIFs
+                document.getElementById("gif1").style.display = "block";
+                document.getElementById("gif2").style.display = "block";
+                document.getElementById("gif3").style.display = "block";
+                document.getElementById("gif4").style.display = "block";
+            } else {
+                loopNo();
+            }
+        }
+    </script>
+</body>
+</html>
+
